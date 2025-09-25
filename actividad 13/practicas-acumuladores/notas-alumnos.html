@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas de Alumnos - Acumulador</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .notas-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .contadores-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .contador {
+            display: inline-block;
+            background-color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 3px solid;
+            font-weight: bold;
+            text-align: center;
+        }
+        .mayor-igual-7 {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+        .menor-7 {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .detalles-analisis {
+            margin-top: 20px;
+        }
+        .nota-item {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        .nota-mayor {
+            color: #27ae60;
+        }
+        .nota-menor {
+            color: #e74c3c;
+        }
+        .texto-centrado {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Notas de Alumnos</h1>
+        <div class="subtitulo">10 notas - Acumuladores</div>
+        
+        <div class="notas-container">
+            <div class="campo">
+                <label for="notasInput">Ingresa 10 notas (0-10), separadas por comas:</label>
+                <input type="text" id="notasInput" placeholder="Ej: 8, 5, 7, 9, 6, 4, 8, 7, 5, 10" value="8,5,7,9,6,4,8,7,5,10">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Acumuladores utilizados:</strong><br>
+            let contadorMayores = 0;  // Acumulador para notas ≥ 7<br>
+            let contadorMenores = 0;  // Acumulador para notas < 7<br><br>
+            for (cada nota) {<br>
+            &nbsp;&nbsp;if (nota >= 7) contadorMayores++;<br>
+            &nbsp;&nbsp;else contadorMenores++;<br>
+            }
+        </div>
+
+        <button onclick="procesarNotas()">Procesar Notas</button>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultados:</h3>
+            <div class="contadores-container">
+                <div class="contador mayor-igual-7">
+                    Notas ≥ 7: <span id="mayores">0</span>
+                </div>
+                <div class="contador menor-7">
+                    Notas < 7: <span id="menores">0</span>
+                </div>
+            </div>
+            <div id="detalles" class="detalles-analisis"></div>
+        </div>
+    </div>
+
+    <script>
+        function procesarNotas() {
+            const notasInput = document.getElementById('notasInput').value;
+            const notasArray = notasInput.split(',').map(nota => parseFloat(nota.trim()));
+            
+            // Validar que hay 10 notas
+            if (notasArray.length !== 10 || notasArray.some(isNaN)) {
+                alert('Por favor ingresa exactamente 10 notas válidas separadas por comas');
+                return;
+            }
+            
+            // ACUMULADORES
+            let contadorMayores = 0;  // Acumulador para notas ≥ 7
+            let contadorMenores = 0;  // Acumulador para notas < 7
+            let detallesHTML = '<strong>Análisis individual:</strong><br>';
+            
+            // Procesar cada nota
+            for (let i = 0; i < notasArray.length; i++) {
+                if (notasArray[i] >= 7) {
+                    contadorMayores++;
+                    detallesHTML += `<div class="nota-item nota-mayor">Nota ${i+1}: ${notasArray[i]} → ≥ 7</div>`;
+                } else {
+                    contadorMenores++;
+                    detallesHTML += `<div class="nota-item nota-menor">Nota ${i+1}: ${notasArray[i]} → < 7</div>`;
+                }
+            }
+            
+            // Mostrar resultados
+            document.getElementById('mayores').textContent = contadorMayores;
+            document.getElementById('menores').textContent = contadorMenores;
+            document.getElementById('detalles').innerHTML = detallesHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Procesar automáticamente al cargar
+        window.onload = procesarNotas;
+    </script>
+</body>
+</html>

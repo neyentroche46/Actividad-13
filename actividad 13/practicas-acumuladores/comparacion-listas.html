@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación Listas - Acumuladores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00cec9 0%, #0984e3 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .listas-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .lista {
+            margin: 20px 0;
+        }
+        .lista h3 {
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+        .campo {
+            margin: 8px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #00cec9 0%, #0984e3 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .comparacion {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .lista1-mayor {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+        }
+        .lista2-mayor {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #f5c6cb;
+        }
+        .listas-iguales {
+            background-color: #cce7ff;
+            color: #004085;
+            border: 3px solid #b3d7ff;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .texto-centrado {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚖️ Comparación de Listas</h1>
+        <div class="subtitulo">2 listas de 3 valores - Acumuladores de suma</div>
+        
+        <div class="listas-container">
+            <div class="lista">
+                <h3>Lista 1 (3 valores):</h3>
+                <div class="campo">
+                    <label for="lista1">Valores separados por comas:</label>
+                    <input type="text" id="lista1" placeholder="Ej: 10, 20, 30" value="10,20,30">
+                </div>
+            </div>
+            
+            <div class="lista">
+                <h3>Lista 2 (3 valores):</h3>
+                <div class="campo">
+                    <label for="lista2">Valores separados por comas:</label>
+                    <input type="text" id="lista2" placeholder="Ej: 15, 25, 35" value="15,25,35">
+                </div>
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Acumuladores utilizados:</strong><br>
+            let suma1 = 0;  // Acumulador Lista 1<br>
+            let suma2 = 0;  // Acumulador Lista 2<br><br>
+            for (cada valor en lista1) suma1 += valor;<br>
+            for (cada valor en lista2) suma2 += valor;<br><br>
+            if (suma1 > suma2) "Lista 1 mayor"<br>
+            else if (suma2 > suma1) "Lista 2 mayor"<br>
+            else "Listas iguales"
+        </div>
+
+        <button onclick="compararListas()">Comparar Listas</button>
+        
+        <div id="resultado" class="resultado">
+            <h3 class="texto-centrado">Resultado de la Comparación:</h3>
+            <div id="comparacion" class="comparacion"></div>
+            <div id="detalles"></div>
+        </div>
+    </div>
+
+    <script>
+        function compararListas() {
+            const lista1Input = document.getElementById('lista1').value;
+            const lista2Input = document.getElementById('lista2').value;
+            
+            const lista1Array = lista1Input.split(',').map(valor => parseFloat(valor.trim()));
+            const lista2Array = lista2Input.split(',').map(valor => parseFloat(valor.trim()));
+            
+            // Validar que ambas listas tienen 3 valores
+            if (lista1Array.length !== 3 || lista2Array.length !== 3 || 
+                lista1Array.some(isNaN) || lista2Array.some(isNaN)) {
+                alert('Por favor ingresa exactamente 3 valores válidos para cada lista');
+                return;
+            }
+            
+            // ACUMULADORES
+            let suma1 = 0;  // Acumulador Lista 1
+            let suma2 = 0;  // Acumulador Lista 2
+            
+            // Procesar Lista 1
+            for (let i = 0; i < lista1Array.length; i++) {
+                suma1 += lista1Array[i];
+            }
+            
+            // Procesar Lista 2
+            for (let i = 0; i < lista2Array.length; i++) {
+                suma2 += lista2Array[i];
+            }
+            
+            // Determinar resultado
+            let resultado = '';
+            let clase = '';
+            
+            if (suma1 > suma2) {
+                resultado = '📈 Lista 1 mayor';
+                clase = 'lista1-mayor';
+            } else if (suma2 > suma1) {
+                resultado = '📈 Lista 2 mayor';
+                clase = 'lista2-mayor';
+            } else {
+                resultado = '⚖️ Listas iguales';
+                clase = 'listas-iguales';
+            }
+            
+            // Detalles
+            let detallesHTML = `
+                <strong>Detalles:</strong><br>
+                Lista 1: ${lista1Array.join(' + ')} = <strong>${suma1}</strong><br>
+                Lista 2: ${lista2Array.join(' + ')} = <strong>${suma2}</strong><br>
+                Diferencia: ${Math.abs(suma1 - suma2)}
+            `;
+            
+            document.getElementById('comparacion').className = 'comparacion ' + clase;
+            document.getElementById('comparacion').textContent = resultado;
+            document.getElementById('detalles').innerHTML = detallesHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Comparar automáticamente al cargar
+        window.onload = compararListas;
+    </script>
+</body>
+</html>

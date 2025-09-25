@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables - Empleado y Sueldo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .variables-info {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            border-left: 5px solid #667eea;
+        }
+        .variable-item {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .variable-tipo {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .variable-valor {
+            font-size: 20px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .explicacion {
+            background-color: #e8f4f8;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            text-align: left;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .codigo {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Variables: Empleado y Sueldo</h1>
+        
+        <div class="variables-info">
+            <script>
+                // Definición de variables según el ejercicio
+                // Variable de tipo cadena (string) para el nombre
+                var nombreEmpleado = "Ana García Rodríguez";
+                
+                // Variable de tipo entera (number) para el sueldo
+                var sueldoEmpleado = 2500;
+                
+                // Imprimir cada variable en una línea distinta
+                document.write('<div class="variable-item">');
+                document.write('<div class="variable-tipo">Variable de tipo cadena:</div>');
+                document.write('<div class="variable-valor">Nombre: ' + nombreEmpleado + '</div>');
+                document.write('</div>');
+                
+                document.write('<br>'); // Salto de línea entre variables
+                
+                document.write('<div class="variable-item">');
+                document.write('<div class="variable-tipo">Variable de tipo entera:</div>');
+                document.write('<div class="variable-valor">Sueldo: $' + sueldoEmpleado + '</div>');
+                document.write('</div>');
+            </script>
+        </div>
+        
+        <div class="explicacion">
+            <h3>🧠 Explicación del código:</h3>
+            <p>Este programa define dos variables diferentes:</p>
+            
+            <div class="codigo">
+                // Variable de tipo CADENA (string)<br>
+                var nombreEmpleado = "Ana García Rodríguez";<br><br>
+                
+                // Variable de tipo ENTERA (number)<br>
+                var sueldoEmpleado = 2500;
+            </div>
+            
+            <p><strong>Características:</strong></p>
+            <ul>
+                <li><strong>nombreEmpleado</strong>: Almacena texto (cadena de caracteres)</li>
+                <li><strong>sueldoEmpleado</strong>: Almacena números (valor entero)</li>
+                <li>Se imprimen en líneas distintas usando <code>&lt;br&gt;</code></li>
+                <li>Cada variable se muestra con su tipo y valor</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

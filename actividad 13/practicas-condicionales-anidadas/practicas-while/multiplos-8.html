@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Múltiplos de 8 - While</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        .multiplos-container {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .multiplo {
+            display: inline-block;
+            background-color: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 5px;
+            border: 2px solid #00b894;
+            font-weight: bold;
+            color: #2d3436;
+            text-align: center;
+            min-width: 60px;
+        }
+        .multiplo:hover {
+            background-color: #00b894;
+            color: white;
+            transform: scale(1.05);
+            transition: all 0.2s;
+        }
+        .contador {
+            background-color: #2d3436;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 3px;
+        }
+        .estadisticas {
+            background-color: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .codigo-ejemplo {
+            background-color: #2d3436;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .fila {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+        .fila-titulo {
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+            margin: 10px 0 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Estructura While - Múltiplos de 8</h1>
+        <div class="subtitulo">Mostrar múltiplos de 8 hasta el valor 500</div>
+        
+        <div class="explicacion">
+            <strong>Lógica del programa:</strong><br>
+            var multiplo = 8;<br>
+            while (multiplo <= 500) {<br>
+            &nbsp;&nbsp;// Imprimir múltiplo actual<br>
+            &nbsp;&nbsp;multiplo += 8;<br>
+            }
+        </div>
+
+        <button onclick="generarMultiplos()" title="Generar todos los múltiplos de 8 hasta 500">Generar Múltiplos</button>
+        
+        <div class="resultado">
+            <h3>Múltiplos de 8 hasta 500:</h3>
+            <div id="estadisticas" class="estadisticas">
+                Haz clic en "Generar Múltiplos" para ver los resultados
+            </div>
+            <div id="multiplos" class="multiplos-container">
+                <p>Los múltiplos aparecerán aquí organizados en filas</p>
+            </div>
+            
+            <div class="codigo-ejemplo">
+                <strong>Código JavaScript utilizado:</strong><br><br>
+                let multiplo = 8;<br>
+                let contador = 1;<br>
+                let multiplosHTML = '';<br><br>
+                while (multiplo <= 500) {<br>
+                &nbsp;&nbsp;multiplosHTML += '&lt;div class="multiplo"&gt;' + multiplo + '&lt;/div&gt;';<br>
+                &nbsp;&nbsp;multiplo += 8;<br>
+                &nbsp;&nbsp;contador++;<br>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generarMultiplos() {
+            let multiplo = 8;
+            let contador = 1;
+            let multiplosHTML = '';
+            let multiplosArray = [];
+            
+            // ESTRUCTURA WHILE - Múltiplos de 8 hasta 500
+            while (multiplo <= 500) {
+                multiplosArray.push(multiplo);
+                multiplo += 8;
+                contador++;
+            }
+            
+            // Organizar en filas de 10 elementos
+            for (let i = 0; i < multiplosArray.length; i += 10) {
+                multiplosHTML += '<div class="fila-titulo">Múltiplos ' + (i + 1) + ' al ' + Math.min(i + 10, multiplosArray.length) + ':</div>';
+                multiplosHTML += '<div class="fila">';
+                for (let j = i; j < Math.min(i + 10, multiplosArray.length); j++) {
+                    multiplosHTML += '<div class="multiplo">' + multiplosArray[j] + 
+                                '<span class="contador">' + (j + 1) + '</span></div>';
+                }
+                multiplosHTML += '</div>';
+            }
+            
+            // Estadísticas
+            let estadisticasHTML = 
+                '<strong>Estadísticas:</strong><br>' +
+                'Total de múltiplos: ' + multiplosArray.length + '<br>' +
+                'Último múltiplo: ' + (multiplosArray[multiplosArray.length - 1]) + '<br>' +
+                'Rango: 8 - ' + (multiplosArray[multiplosArray.length - 1]);
+            
+            document.getElementById('estadisticas').innerHTML = estadisticasHTML;
+            document.getElementById('multiplos').innerHTML = multiplosHTML;
+        }
+        
+        // Generar automáticamente al cargar la página
+        window.onload = generarMultiplos;
+    </script>
+</body>
+</html>

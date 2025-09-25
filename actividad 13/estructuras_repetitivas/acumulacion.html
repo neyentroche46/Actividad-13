@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1: Acumulación de Valores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .instrucciones {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .btn-finalizar {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .contador {
+            text-align: center;
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 3px solid #667eea;
+            font-weight: bold;
+            font-size: 24px;
+            color: #667eea;
+        }
+        .valores-ingresados {
+            margin-top: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .explicacion {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-left: 3px solid #667eea;
+        }
+        .estado-mayor {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .estado-menor {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .estado-cero {
+            color: #95a5a6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Ejercicio 1: Acumulación de Valores</h1>
+        <div class="subtitulo">Estructura repetitiva (do/while) - Acumulador</div>
+        
+        <div class="instrucciones">
+            <strong>Instrucciones:</strong> Ingresa valores numéricos. El programa sumará todos los valores hasta que ingreses 9999 (este valor no se incluye en la suma).
+        </div>
+        
+        <div class="explicacion">
+            <strong>Lógica del programa:</strong><br>
+            let acumulador = 0;<br>
+            let valor;<br>
+            do {<br>
+            &nbsp;&nbsp;valor = parseInt(prompt("Ingrese un valor:"));<br>
+            &nbsp;&nbsp;if (valor != 9999) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;acumulador += valor;<br>
+            &nbsp;&nbsp;}<br>
+            } while (valor != 9999);
+        </div>
+
+        <div class="campo">
+            <label for="valorInput">Ingresa un valor:</label>
+            <input type="number" id="valorInput" placeholder="Ingresa un número (9999 para finalizar)">
+        </div>
+        
+        <button onclick="agregarValor()">Agregar valor a la suma</button>
+        <button onclick="finalizarAcumulacion()" class="btn-finalizar">Finalizar (ingresar 9999)</button>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultado:</h3>
+            <div class="contador">
+                Valor acumulado: <span id="valorAcumulado">0</span>
+            </div>
+            <p>Estado del acumulado: <span id="estadoAcumulado"></span></p>
+            
+            <div class="valores-ingresados">
+                <strong>Valores ingresados:</strong>
+                <div id="listaValores"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let acumulador = 0;
+        let valores = [];
+        
+        function agregarValor() {
+            const valorInput = document.getElementById('valorInput');
+            const valor = parseInt(valorInput.value);
+            
+            if (isNaN(valor)) {
+                alert('Por favor ingresa un número válido');
+                return;
+            }
+            
+            if (valor === 9999) {
+                finalizarAcumulacion();
+                return;
+            }
+            
+            // Agregar valor al acumulador
+            acumulador += valor;
+            valores.push(valor);
+            
+            // Actualizar interfaz
+            document.getElementById('valorAcumulado').textContent = acumulador;
+            document.getElementById('listaValores').innerHTML = valores.join(', ');
+            
+            // Determinar estado
+            let estado = '';
+            let estadoClase = '';
+            if (acumulador > 0) {
+                estado = 'MAYOR A CERO';
+                estadoClase = 'estado-mayor';
+            } else if (acumulador < 0) {
+                estado = 'MENOR A CERO';
+                estadoClase = 'estado-menor';
+            } else {
+                estado = 'CERO';
+                estadoClase = 'estado-cero';
+            }
+            
+            const estadoElement = document.getElementById('estadoAcumulado');
+            estadoElement.textContent = estado;
+            estadoElement.className = estadoClase;
+            
+            // Mostrar resultado
+            document.getElementById('resultado').classList.add('mostrar');
+            
+            // Limpiar campo
+            valorInput.value = '';
+            valorInput.focus();
+        }
+        
+        function finalizarAcumulacion() {
+            document.getElementById('valorInput').value = 9999;
+            agregarValor();
+        }
+        
+        // Permitir Enter para agregar valor
+        document.getElementById('valorInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                agregarValor();
+            }
+        });
+    </script>
+</body>
+</html>

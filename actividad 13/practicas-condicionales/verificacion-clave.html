@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Clave</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .clave-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 20px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        .btn-principal {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        .btn-secundario {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .claves-iguales {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .claves-diferentes {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .operador {
+            background-color: #2d3436;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .info-clave {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Verificación de Clave</h1>
+        
+        <div class="clave-container">
+            <div class="campo">
+                <label for="clave1">Primera clave:</label>
+                <input type="password" id="clave1" placeholder="Ingresa tu clave">
+            </div>
+            <div class="campo">
+                <label for="clave2">Repite la clave:</label>
+                <input type="password" id="clave2" placeholder="Vuelve a ingresar la clave">
+            </div>
+        </div>
+
+        <button class="btn-principal" onclick="verificarClaves()">Verificar Claves</button>
+        <button class="btn-secundario" onclick="verificarConPrompt()">Usar Prompt (como ejercicio)</button>
+        
+        <div class="explicacion">
+            <strong>Operador de comparación:</strong><br>
+            Para verificar si dos variables son iguales usamos: <span class="operador">==</span><br>
+            <small>Ejemplo: if (clave1 == clave2) { ... }</small>
+        </div>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultado:</h3>
+            <p id="resultado-texto"></p>
+        </div>
+    </div>
+
+    <script>
+        function verificarClaves() {
+            // Obtener valores de los inputs
+            var clave1 = document.getElementById('clave1').value;
+            var clave2 = document.getElementById('clave2').value;
+            
+            // Validar que ambas claves estén ingresadas
+            if (clave1 === '' || clave2 === '') {
+                alert('Por favor ingresa ambas claves');
+                return;
+            }
+            
+            // Estructura condicional simple usando ==
+            var mensaje = '';
+            var claseResultado = '';
+            
+            if (clave1 == clave2) {
+                mensaje = '✅ Las claves son IGUALES';
+                claseResultado = 'claves-iguales';
+            } else {
+                mensaje = '❌ Las claves son DIFERENTES';
+                claseResultado = 'claves-diferentes';
+            }
+            
+            // Mostrar resultado (sin mostrar las claves por seguridad)
+            var resultadoHTML = '';
+            resultadoHTML += '<div class="info-clave"><strong>Longitud primera clave:</strong> ' + clave1.length + ' caracteres</div>';
+            resultadoHTML += '<div class="info-clave"><strong>Longitud segunda clave:</strong> ' + clave2.length + ' caracteres</div>';
+            resultadoHTML += '<div class="' + claseResultado + '">' + mensaje + '</div>';
+            
+            document.getElementById('resultado-texto').innerHTML = resultadoHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+
+        // Función usando prompt como pide el ejercicio
+        function verificarConPrompt() {
+            // Solicitar claves dos veces usando prompt
+            var clave1 = prompt('Ingrese su clave:', '');
+            var clave2 = prompt('Ingrese su clave nuevamente:', '');
+            
+            // Validar que se ingresaron claves
+            if (clave1 === null || clave2 === null || clave1 === '' || clave2 === '') {
+                alert('Debe ingresar ambas claves');
+                return;
+            }
+            
+            // Estructura condicional simple usando ==
+            if (clave1 == clave2) {
+                alert('✅ Las claves son IGUALES\n\nLas claves coinciden correctamente.');
+            } else {
+                alert('❌ Las claves son DIFERENTES\n\nPor favor, verifica que hayas ingresado la misma clave en ambos campos.');
+            }
+        }
+    </script>
+</body>
+</html>

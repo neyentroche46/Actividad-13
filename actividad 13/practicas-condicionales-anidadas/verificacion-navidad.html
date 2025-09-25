@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Fecha Navideña</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .fecha-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campos-fecha {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .campo {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .navidad {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+        }
+        .no-navidad {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #f5c6cb;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎄 Verificación de Fecha Navideña</h1>
+        
+        <div class="fecha-container">
+            <div class="campos-fecha">
+                <div class="campo">
+                    <label for="dia">Día:</label>
+                    <input type="number" id="dia" placeholder="DD" min="1" max="31">
+                </div>
+                <div class="campo">
+                    <label for="mes">Mes:</label>
+                    <input type="number" id="mes" placeholder="MM" min="1" max="12">
+                </div>
+                <div class="campo">
+                    <label for="anio">Año:</label>
+                    <input type="number" id="anio" placeholder="AAAA" min="1900" max="2100">
+                </div>
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Condiciones anidadas para Navidad:</strong><br>
+            if (mes == 12) {<br>
+            &nbsp;&nbsp;if (dia == 25) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;// Es Navidad<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+
+        <button onclick="verificarNavidad()">Verificar si es Navidad</button>
+        
+        <div id="resultado" class="resultado">
+            <p id="resultado-texto"></p>
+        </div>
+    </div>
+
+    <script>
+        function verificarNavidad() {
+            var dia = parseInt(document.getElementById('dia').value);
+            var mes = parseInt(document.getElementById('mes').value);
+            var anio = parseInt(document.getElementById('anio').value);
+            
+            if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
+                alert('Por favor ingresa día, mes y año válidos');
+                return;
+            }
+            
+            var mensaje = '';
+            var claseResultado = '';
+            
+            // ESTRUCTURAS CONDICIONALES ANIDADAS
+            if (mes === 12) {
+                if (dia === 25) {
+                    mensaje = '🎅 ¡FELIZ NAVIDAD! 🎄<br>La fecha ' + dia + '/' + mes + '/' + anio + ' corresponde a Navidad';
+                    claseResultado = 'navidad';
+                } else {
+                    mensaje = '❌ No es Navidad<br>Es diciembre pero el día no es 25';
+                    claseResultado = 'no-navidad';
+                }
+            } else {
+                mensaje = '❌ No es Navidad<br>No es el mes de diciembre';
+                claseResultado = 'no-navidad';
+            }
+            
+            document.getElementById('resultado-texto').innerHTML = mensaje;
+            document.getElementById('resultado').className = 'resultado mostrar ' + claseResultado;
+        }
+    </script>
+</body>
+</html>

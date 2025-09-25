@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operador Lógico OR - Al Menos Uno Menor a Diez</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: normal;
+        }
+        .numeros-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .alguno-menor {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+        }
+        .ninguno-menor {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #f5c6cb;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .verificacion {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .condicion-verdadera {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .condicion-falsa {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        /* ESTILOS PARA REEMPLAZAR LOS INLINE */
+        .resultado-mensaje {
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .operacion {
+            background-color: #fff;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .operacion-destacada {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .ejemplos-container {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Operador Lógico OR (||)</h1>
+        <h2 class="subtitulo">"Al menos uno menor a 10"</h2>
+        
+        <div class="numeros-container">
+            <div class="campo">
+                <label for="num1">Número 1:</label>
+                <input type="number" id="num1" placeholder="Ingresa el primer número">
+            </div>
+            <div class="campo">
+                <label for="num2">Número 2:</label>
+                <input type="number" id="num2" placeholder="Ingresa el segundo número">
+            </div>
+            <div class="campo">
+                <label for="num3">Número 3:</label>
+                <input type="number" id="num3" placeholder="Ingresa el tercer número">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Operador Lógico OR (||):</strong><br>
+            if (num1 < 10 <span class="condicion-verdadera">||</span> num2 < 10 <span class="condicion-verdadera">||</span> num3 < 10) {<br>
+            &nbsp;&nbsp;// Al menos uno es menor a 10<br>
+            }<br><br>
+            <strong>El operador OR devuelve TRUE si:</strong><br>
+            - Al menos una de las condiciones es verdadera<br>
+            - No es necesario que todas sean verdaderas
+        </div>
+
+        <button onclick="verificarAlgunoMenor()">Verificar Números</button>
+        
+        <div id="resultado" class="resultado">
+            <p id="resultado-texto"></p>
+            <div id="verificacion-detalle" class="verificacion"></div>
+        </div>
+    </div>
+
+    <script>
+        function verificarAlgunoMenor() {
+            var num1 = parseFloat(document.getElementById('num1').value);
+            var num2 = parseFloat(document.getElementById('num2').value);
+            var num3 = parseFloat(document.getElementById('num3').value);
+            
+            if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+                alert('Por favor ingresa los tres números');
+                return;
+            }
+            
+            var mensaje = '';
+            var claseResultado = '';
+            
+            // USO DEL OPERADOR LÓGICO OR (||)
+            if (num1 < 10 || num2 < 10 || num3 < 10) {
+                mensaje = '✅ Alguno de los números es menor a diez';
+                claseResultado = 'alguno-menor';
+            } else {
+                mensaje = '❌ Ninguno de los números es menor a diez';
+                claseResultado = 'ninguno-menor';
+            }
+            
+            // Detalle de la verificación
+            var cond1 = num1 < 10;
+            var cond2 = num2 < 10;
+            var cond3 = num3 < 10;
+            
+            var detalleHTML = 
+                '<strong>Análisis de condiciones:</strong><br>' +
+                'Número 1 (' + num1 + ') < 10: <span class="' + (cond1 ? 'condicion-verdadera' : 'condicion-falsa') + '">' + cond1 + '</span><br>' +
+                'Número 2 (' + num2 + ') < 10: <span class="' + (cond2 ? 'condicion-verdadera' : 'condicion-falsa') + '">' + cond2 + '</span><br>' +
+                'Número 3 (' + num3 + ') < 10: <span class="' + (cond3 ? 'condicion-verdadera' : 'condicion-falsa') + '">' + cond3 + '</span><br><br>' +
+                '<strong>Resultado OR:</strong> ' + cond1 + ' <span class="condicion-verdadera">||</span> ' + cond2 + ' <span class="condicion-verdadera">||</span> ' + cond3 + ' = <span class="' + ((cond1 || cond2 || cond3) ? 'condicion-verdadera' : 'condicion-falsa') + '">' + (cond1 || cond2 || cond3) + '</span>';
+            
+            // Usar clases CSS en lugar de estilos en línea
+            document.getElementById('resultado-texto').innerHTML = 
+                '<div class="resultado-mensaje ' + claseResultado + '">' + mensaje + '</div>';
+            document.getElementById('verificacion-detalle').innerHTML = detalleHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Ejemplos de uso del operador OR
+        function mostrarEjemplos() {
+            var ejemplosHTML = 
+                '<div class="ejemplos-container">' +
+                '<strong>Ejemplos del operador OR (||):</strong><br>' +
+                '• true || true || false → <span class="condicion-verdadera">true</span><br>' +
+                '• false || true || false → <span class="condicion-verdadera">true</span><br>' +
+                '• false || false || true → <span class="condicion-verdadera">true</span><br>' +
+                '• false || false || false → <span class="condicion-falsa">false</span><br>' +
+                '• 5 < 10 || 15 < 10 || 8 < 10 → <span class="condicion-verdadera">true</span> (porque 5 y 8 son < 10)' +
+                '</div>';
+            
+            document.getElementById('verificacion-detalle').innerHTML += ejemplosHTML;
+        }
+        
+        // Llamar a mostrar ejemplos después de la verificación
+        document.querySelector('button').addEventListener('click', function() {
+            setTimeout(mostrarEjemplos, 100);
+        });
+    </script>
+</body>
+</html>

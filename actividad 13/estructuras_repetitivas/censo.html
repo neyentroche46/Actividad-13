@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3: Procesamiento de Censo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .instrucciones {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .formulario-persona {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .btn-finalizar {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .contadores-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+        .contador {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 3px solid;
+            font-weight: bold;
+            text-align: center;
+            min-width: 120px;
+            margin: 10px;
+            flex: 1;
+        }
+        .total {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        .varones {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        .mujeres {
+            border-color: #e84393;
+            color: #e84393;
+        }
+        .varones-jovenes {
+            border-color: #00b894;
+            color: #00b894;
+        }
+        .lista-personas {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .persona-item {
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 3px;
+            background-color: #f8f9fa;
+        }
+        .explicacion {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-left: 3px solid #ff9a9e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Ejercicio 3: Procesamiento de Censo</h1>
+        <div class="subtitulo">Estructura repetitiva (do/while) - Conteo y clasificación</div>
+        
+        <div class="instrucciones">
+            <strong>Instrucciones:</strong> Ingresa los datos de las personas censadas. Usa 0 en "Número de documento" para finalizar.
+        </div>
+        
+        <div class="explicacion">
+            <strong>Lógica del programa:</strong><br>
+            let personas = [];<br>
+            let documento;<br>
+            do {<br>
+            &nbsp;&nbsp;documento = parseInt(prompt("Número de documento:"));<br>
+            &nbsp;&nbsp;if (documento != 0) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;// Solicitar edad y sexo, luego agregar a personas<br>
+            &nbsp;&nbsp;}<br>
+            } while (documento != 0);
+        </div>
+
+        <div class="formulario-persona">
+            <div class="campo">
+                <label for="documento">Número de documento:</label>
+                <input type="number" id="documento" placeholder="Número de documento (0 para finalizar)">
+            </div>
+            <div class="campo">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" placeholder="Edad de la persona">
+            </div>
+            <div class="campo">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo">
+                    <option value="">Seleccione una opción</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="masculino">Masculino</option>
+                </select>
+            </div>
+            
+            <button onclick="agregarPersona()">Agregar persona al censo</button>
+            <button onclick="finalizarCenso()" class="btn-finalizar">Finalizar censo</button>
+        </div>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultados del Censo</h3>
+            
+            <div class="contadores-container">
+                <div class="contador total">
+                    Total censados: <span id="totalCensados">0</span>
+                </div>
+                <div class="contador varones">
+                    Varones: <span id="totalVarones">0</span>
+                </div>
+                <div class="contador mujeres">
+                    Mujeres: <span id="totalMujeres">0</span>
+                </div>
+                <div class="contador varones-jovenes">
+                    Varones 16-65: <span id="varonesJovenes">0</span>
+                </div>
+            </div>
+            
+            <div class="lista-personas">
+                <strong>Personas censadas:</strong>
+                <div id="listaPersonas"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let personas = [];
+        
+        function agregarPersona() {
+            const documento = document.getElementById('documento').value;
+            const edad = document.getElementById('edad').value;
+            const sexo = document.getElementById('sexo').value;
+            
+            // Validaciones
+            if (documento === '' || edad === '' || sexo === '') {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            if (parseInt(documento) === 0) {
+                finalizarCenso();
+                return;
+            }
+            
+            // Agregar persona al array
+            const persona = {
+                documento: documento,
+                edad: parseInt(edad),
+                sexo: sexo
+            };
+            
+            personas.push(persona);
+            
+            // Actualizar resultados
+            actualizarResultados();
+            
+            // Limpiar formulario
+            document.getElementById('documento').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('sexo').value = '';
+            document.getElementById('documento').focus();
+        }
+        
+        function actualizarResultados() {
+            // Calcular estadísticas
+            const totalCensados = personas.length;
+            const totalVarones = personas.filter(p => p.sexo === 'masculino').length;
+            const totalMujeres = personas.filter(p => p.sexo === 'femenino').length;
+            const varonesJovenes = personas.filter(p => p.sexo === 'masculino' && p.edad >= 16 && p.edad <= 65).length;
+            
+            // Actualizar contadores
+            document.getElementById('totalCensados').textContent = totalCensados;
+            document.getElementById('totalVarones').textContent = totalVarones;
+            document.getElementById('totalMujeres').textContent = totalMujeres;
+            document.getElementById('varonesJovenes').textContent = varonesJovenes;
+            
+            // Actualizar lista de personas
+            const listaPersonas = document.getElementById('listaPersonas');
+            listaPersonas.innerHTML = '';
+            
+            personas.forEach((persona, index) => {
+                const div = document.createElement('div');
+                div.className = 'persona-item';
+                div.textContent = `Persona ${index+1}: Doc. ${persona.documento}, ${persona.edad} años, ${persona.sexo}`;
+                listaPersonas.appendChild(div);
+            });
+            
+            // Mostrar resultado
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        function finalizarCenso() {
+            document.getElementById('documento').value = '0';
+            agregarPersona();
+        }
+        
+        // Permitir Enter para agregar persona
+        document.getElementById('sexo').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                agregarPersona();
+            }
+        });
+    </script>
+</body>
+</html>

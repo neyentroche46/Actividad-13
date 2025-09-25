@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promedio de Notas - Promocionado</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .notas-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .btn-principal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        .btn-secundario {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .promocionado {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .no-promocionado {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .proceso {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .info-nota {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Promedio de Notas - Promocionado</h1>
+        
+        <div class="notas-container">
+            <div class="campo">
+                <label for="nota1">Nota 1:</label>
+                <input type="number" id="nota1" placeholder="Ingresa la primera nota (0-10)" min="0" max="10" step="0.1">
+            </div>
+            <div class="campo">
+                <label for="nota2">Nota 2:</label>
+                <input type="number" id="nota2" placeholder="Ingresa la segunda nota (0-10)" min="0" max="10" step="0.1">
+            </div>
+            <div class="campo">
+                <label for="nota3">Nota 3:</label>
+                <input type="number" id="nota3" placeholder="Ingresa la tercera nota (0-10)" min="0" max="10" step="0.1">
+            </div>
+        </div>
+
+        <button class="btn-principal" onclick="calcularPromedio()">Calcular Promedio</button>
+        <button class="btn-secundario" onclick="calcularConPrompt()">Usar Prompt (como ejercicio)</button>
+        
+        <div class="proceso">
+            <strong>Proceso del cálculo:</strong><br>
+            suma = nota1 + nota2 + nota3<br>
+            promedio = suma / 3<br>
+            Si promedio >= 7 → "Promocionado"
+        </div>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultado:</h3>
+            <p id="resultado-texto"></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularPromedio() {
+            // Obtener valores de los inputs
+            var nota1 = parseFloat(document.getElementById('nota1').value);
+            var nota2 = parseFloat(document.getElementById('nota2').value);
+            var nota3 = parseFloat(document.getElementById('nota3').value);
+            
+            // Validar que todas las notas estén ingresadas
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert('Por favor ingresa las tres notas');
+                return;
+            }
+            
+            // Calcular promedio
+            var suma = nota1 + nota2 + nota3;
+            var promedio = suma / 3;
+            
+            // Estructura condicional simple
+            var mensaje = '';
+            var claseResultado = '';
+            
+            if (promedio >= 7) {
+                mensaje = '🎉 ¡PROMOCIONADO! 🎉';
+                claseResultado = 'promocionado';
+            } else {
+                mensaje = '❌ No promocionado';
+                claseResultado = 'no-promocionado';
+            }
+            
+            // Mostrar resultado
+            var resultadoHTML = '';
+            resultadoHTML += '<div class="info-nota"><strong>Notas ingresadas:</strong> ' + nota1 + ', ' + nota2 + ', ' + nota3 + '</div>';
+            resultadoHTML += '<div class="info-nota"><strong>Suma:</strong> ' + nota1 + ' + ' + nota2 + ' + ' + nota3 + ' = ' + suma + '</div>';
+            resultadoHTML += '<div class="info-nota"><strong>Promedio:</strong> ' + suma + ' / 3 = ' + promedio.toFixed(2) + '</div>';
+            resultadoHTML += '<div class="' + claseResultado + '">' + mensaje + '</div>';
+            
+            document.getElementById('resultado-texto').innerHTML = resultadoHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+
+        // Función usando prompt como pide el ejercicio
+        function calcularConPrompt() {
+            // Usando prompt y parseInt como indica el ejercicio
+            var nota1 = parseInt(prompt('Ingrese primer nota:', ''));
+            var nota2 = parseInt(prompt('Ingrese segunda nota:', ''));
+            var nota3 = parseInt(prompt('Ingrese tercera nota:', ''));
+            
+            // Validar que se ingresaron números
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert('Debe ingresar números válidos');
+                return;
+            }
+            
+            // Calcular promedio
+            var suma = nota1 + nota2 + nota3;
+            var promedio = suma / 3;
+            
+            // Estructura condicional simple
+            if (promedio >= 7) {
+                alert('🎉 ¡PROMOCIONADO! 🎉\n\nNotas: ' + nota1 + ', ' + nota2 + ', ' + nota3 + 
+                    '\nSuma: ' + suma + '\nPromedio: ' + promedio.toFixed(2));
+            } else {
+                alert('❌ No promocionado\n\nNotas: ' + nota1 + ', ' + nota2 + ', ' + nota3 + 
+                    '\nSuma: ' + suma + '\nPromedio: ' + promedio.toFixed(2));
+            }
+        }
+    </script>
+</body>
+</html>

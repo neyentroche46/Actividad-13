@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Múltiplos de 10 - Acumulador</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .multiplos-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .multiplo {
+            display: inline-block;
+            background-color: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 5px;
+            border: 2px solid #f39c12;
+            font-weight: bold;
+            color: #2d3436;
+            text-align: center;
+            min-width: 70px;
+        }
+        .multiplo:hover {
+            background-color: #f39c12;
+            color: white;
+            transform: scale(1.05);
+            transition: all 0.2s;
+        }
+        .fila {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+        .fila-titulo {
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+            margin: 10px 0 5px 0;
+        }
+        .estadisticas {
+            background-color: #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .texto-centrado {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Múltiplos de 10</h1>
+        <div class="subtitulo">Hasta 1500 - Acumulador de progresión</div>
+
+        <div class="explicacion">
+            <strong>Acumulador utilizado:</strong><br>
+            let multiplo = 10;  // Valor inicial<br><br>
+            while (multiplo <= 1500) {<br>
+            &nbsp;&nbsp;// Mostrar múltiplo actual<br>
+            &nbsp;&nbsp;multiplo += 10;  // Acumulación<br>
+            }
+        </div>
+
+        <div class="estadisticas" id="estadisticas">
+            Cargando múltiplos...
+        </div>
+
+        <div class="multiplos-container">
+            <div id="multiplos"></div>
+        </div>
+    </div>
+
+    <script>
+        function generarMultiplos() {
+            let multiplo = 10;  // Acumulador del valor actual
+            let contador = 0;   // Acumulador del contador
+            let multiplosArray = [];
+            
+            // Generar múltiplos hasta 1500
+            while (multiplo <= 1500) {
+                multiplosArray.push(multiplo);
+                multiplo += 10;  // Acumulación
+                contador++;
+            }
+            
+            // Organizar en filas
+            let multiplosHTML = '';
+            for (let i = 0; i < multiplosArray.length; i += 10) {
+                multiplosHTML += `<div class="fila-titulo">${i+1}-${Math.min(i+10, multiplosArray.length)}</div>`;
+                multiplosHTML += '<div class="fila">';
+                for (let j = i; j < Math.min(i+10, multiplosArray.length); j++) {
+                    multiplosHTML += `<div class="multiplo">${multiplosArray[j]}</div>`;
+                }
+                multiplosHTML += '</div>';
+            }
+            
+            // Estadísticas
+            let statsHTML = `
+                <strong>Estadísticas:</strong><br>
+                Total de múltiplos: ${contador}<br>
+                Primer múltiplo: 10<br>
+                Último múltiplo: ${multiplosArray[multiplosArray.length-1]}<br>
+                Rango: 10 - 1500
+            `;
+            
+            document.getElementById('estadisticas').innerHTML = statsHTML;
+            document.getElementById('multiplos').innerHTML = multiplosHTML;
+        }
+        
+        // Generar automáticamente
+        window.onload = generarMultiplos;
+    </script>
+</body>
+</html>

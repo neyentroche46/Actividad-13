@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sueldos Empleados - Acumuladores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .sueldos-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .estadisticas-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .estadistica {
+            display: inline-block;
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 3px solid;
+            font-weight: bold;
+            text-align: center;
+            min-width: 150px;
+        }
+        .sueldo-bajo {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        .sueldo-alto {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        .total {
+            border-color: #27ae60;
+            color: #27ae60;
+            font-size: 20px;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .detalles-analisis {
+            margin-top: 20px;
+        }
+        .sueldo-item {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .sueldo-bajo-item {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #3498db;
+        }
+        .sueldo-alto-item {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #e74c3c;
+        }
+        .texto-color-azul {
+            color: #3498db;
+            font-weight: bold;
+        }
+        .texto-color-rojo {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Sueldos de Empleados</h1>
+        <div class="subtitulo">5 empleados - Múltiples acumuladores</div>
+        
+        <div class="sueldos-container">
+            <div class="campo">
+                <label for="sueldosInput">Ingresa 5 sueldos ($100-500), separados por comas:</label>
+                <input type="text" id="sueldosInput" placeholder="Ej: 250, 180, 400, 150, 320" value="250,180,400,150,320">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Acumuladores utilizados:</strong><br>
+            let contador100a300 = 0;  // Empleados $100-300<br>
+            let contadorMas300 = 0;   // Empleados > $300<br>
+            let totalSueldos = 0;     // Acumulador total<br><br>
+            for (cada sueldo) {<br>
+            &nbsp;&nbsp;totalSueldos += sueldo;<br>
+            &nbsp;&nbsp;if (sueldo <= 300) contador100a300++;<br>
+            &nbsp;&nbsp;else contadorMas300++;<br>
+            }
+        </div>
+
+        <button onclick="procesarSueldos()">Procesar Sueldos</button>
+        
+        <div id="resultado" class="resultado">
+            <h3 class="texto-centrado">Resultados de la Empresa:</h3>
+            <div class="estadisticas-container">
+                <div class="estadistica sueldo-bajo">
+                    $100-300: <span id="contadorBajo">0</span> emp.
+                </div>
+                <div class="estadistica sueldo-alto">
+                    > $300: <span id="contadorAlto">0</span> emp.
+                </div>
+                <div class="estadistica total">
+                    Total: $<span id="totalSueldos">0</span>
+                </div>
+            </div>
+            <div id="detalles" class="detalles-analisis"></div>
+        </div>
+    </div>
+
+    <script>
+        function procesarSueldos() {
+            const sueldosInput = document.getElementById('sueldosInput').value;
+            const sueldosArray = sueldosInput.split(',').map(sueldo => parseFloat(sueldo.trim()));
+            
+            // Validar que hay 5 sueldos y están en rango
+            if (sueldosArray.length !== 5 || sueldosArray.some(isNaN) || 
+                sueldosArray.some(sueldo => sueldo < 100 || sueldo > 500)) {
+                alert('Por favor ingresa exactamente 5 sueldos válidos entre $100 y $500');
+                return;
+            }
+            
+            // ACUMULADORES
+            let contador100a300 = 0;  // Acumulador para sueldos $100-300
+            let contadorMas300 = 0;   // Acumulador para sueldos > $300
+            let totalSueldos = 0;     // Acumulador total de sueldos
+            let detallesHTML = '<strong>Análisis individual:</strong><br>';
+            
+            // Procesar cada sueldo
+            for (let i = 0; i < sueldosArray.length; i++) {
+                totalSueldos += sueldosArray[i];
+                
+                if (sueldosArray[i] <= 300) {
+                    contador100a300++;
+                    detallesHTML += `<div class="sueldo-item sueldo-bajo-item">Empleado ${i+1}: $${sueldosArray[i]} → <span class="texto-color-azul">$100-300</span></div>`;
+                } else {
+                    contadorMas300++;
+                    detallesHTML += `<div class="sueldo-item sueldo-alto-item">Empleado ${i+1}: $${sueldosArray[i]} → <span class="texto-color-rojo">> $300</span></div>`;
+                }
+            }
+            
+            // Mostrar resultados
+            document.getElementById('contadorBajo').textContent = contador100a300;
+            document.getElementById('contadorAlto').textContent = contadorMas300;
+            document.getElementById('totalSueldos').textContent = totalSueldos;
+            document.getElementById('detalles').innerHTML = detallesHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Procesar automáticamente al cargar
+        window.onload = procesarSueldos;
+    </script>
+</body>
+</html>

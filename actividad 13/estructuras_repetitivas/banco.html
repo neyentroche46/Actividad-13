@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2: Gestión de Cuentas Bancarias</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .instrucciones {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .formulario-cuenta {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .btn-finalizar {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .tabla-cuentas {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tabla-cuentas th, .tabla-cuentas td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .tabla-cuentas th {
+            background-color: #f2f2f2;
+        }
+        .acreedor {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .deudor {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .nulo {
+            color: #95a5a6;
+            font-weight: bold;
+        }
+        .resumen {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #4facfe;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .explicacion {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-left: 3px solid #4facfe;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏦 Ejercicio 2: Gestión de Cuentas Bancarias</h1>
+        <div class="subtitulo">Estructura repetitiva (do/while) - Procesamiento de datos</div>
+        
+        <div class="instrucciones">
+            <strong>Instrucciones:</strong> Ingresa los datos de las cuentas corrientes. Usa un número negativo en "Número de cuenta" para finalizar.
+        </div>
+        
+        <div class="explicacion">
+            <strong>Lógica del programa:</strong><br>
+            let cuentas = [];<br>
+            let numeroCuenta;<br>
+            do {<br>
+            &nbsp;&nbsp;numeroCuenta = parseInt(prompt("Número de cuenta:"));<br>
+            &nbsp;&nbsp;if (numeroCuenta >= 0) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;// Solicitar nombre y saldo, luego agregar a cuentas<br>
+            &nbsp;&nbsp;}<br>
+            } while (numeroCuenta >= 0);
+        </div>
+
+        <div class="formulario-cuenta">
+            <div class="campo">
+                <label for="numeroCuenta">Número de cuenta:</label>
+                <input type="number" id="numeroCuenta" placeholder="Número de cuenta (negativo para finalizar)">
+            </div>
+            <div class="campo">
+                <label for="nombreCliente">Nombre del cliente:</label>
+                <input type="text" id="nombreCliente" placeholder="Nombre del cliente">
+            </div>
+            <div class="campo">
+                <label for="saldoCuenta">Saldo actual:</label>
+                <input type="number" id="saldoCuenta" placeholder="Saldo de la cuenta" step="0.01">
+            </div>
+            
+            <button onclick="agregarCuenta()">Agregar cuenta</button>
+            <button onclick="finalizarIngreso()" class="btn-finalizar">Finalizar ingreso</button>
+        </div>
+        
+        <div id="resultado" class="resultado">
+            <h3>Informe de Cuentas Corrientes</h3>
+            
+            <div class="resumen">
+                Suma total de saldos acreedores: $<span id="sumaAcreedores">0.00</span>
+            </div>
+            
+            <table class="tabla-cuentas">
+                <thead>
+                    <tr>
+                        <th>Número de Cuenta</th>
+                        <th>Nombre del Cliente</th>
+                        <th>Saldo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let cuentas = [];
+        let sumaAcreedores = 0;
+        
+        function agregarCuenta() {
+            const numeroCuenta = document.getElementById('numeroCuenta').value;
+            const nombreCliente = document.getElementById('nombreCliente').value;
+            const saldoCuenta = parseFloat(document.getElementById('saldoCuenta').value);
+            
+            // Validaciones
+            if (numeroCuenta === '' || nombreCliente === '' || isNaN(saldoCuenta)) {
+                alert('Por favor completa todos los campos correctamente');
+                return;
+            }
+            
+            if (parseInt(numeroCuenta) < 0) {
+                finalizarIngreso();
+                return;
+            }
+            
+            // Determinar estado de la cuenta
+            let estado = '';
+            if (saldoCuenta > 0) {
+                estado = 'Acreedor';
+                sumaAcreedores += saldoCuenta;
+            } else if (saldoCuenta < 0) {
+                estado = 'Deudor';
+            } else {
+                estado = 'Nulo';
+            }
+            
+            // Agregar cuenta al array
+            const cuenta = {
+                numero: numeroCuenta,
+                nombre: nombreCliente,
+                saldo: saldoCuenta,
+                estado: estado
+            };
+            
+            cuentas.push(cuenta);
+            
+            // Actualizar tabla
+            actualizarTabla();
+            
+            // Limpiar formulario
+            document.getElementById('numeroCuenta').value = '';
+            document.getElementById('nombreCliente').value = '';
+            document.getElementById('saldoCuenta').value = '';
+            document.getElementById('numeroCuenta').focus();
+        }
+        
+        function actualizarTabla() {
+            const cuerpoTabla = document.getElementById('cuerpoTabla');
+            cuerpoTabla.innerHTML = '';
+            
+            cuentas.forEach(cuenta => {
+                const fila = document.createElement('tr');
+                
+                // Determinar clase según el estado
+                let claseEstado = '';
+                if (cuenta.estado === 'Acreedor') claseEstado = 'acreedor';
+                else if (cuenta.estado === 'Deudor') claseEstado = 'deudor';
+                else claseEstado = 'nulo';
+                
+                fila.innerHTML = `
+                    <td>${cuenta.numero}</td>
+                    <td>${cuenta.nombre}</td>
+                    <td>$${cuenta.saldo.toFixed(2)}</td>
+                    <td class="${claseEstado}">${cuenta.estado}</td>
+                `;
+                
+                cuerpoTabla.appendChild(fila);
+            });
+            
+            // Actualizar suma de acreedores
+            document.getElementById('sumaAcreedores').textContent = sumaAcreedores.toFixed(2);
+            
+            // Mostrar resultado
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        function finalizarIngreso() {
+            document.getElementById('numeroCuenta').value = '-1';
+            agregarCuenta();
+        }
+        
+        // Permitir Enter para agregar cuenta
+        document.getElementById('saldoCuenta').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                agregarCuenta();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pares e Impares - Operador %</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .numeros-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .contadores-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .contador {
+            display: inline-block;
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 3px solid;
+            font-weight: bold;
+            text-align: center;
+            min-width: 120px;
+        }
+        .pares {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        .impares {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .detalles-analisis {
+            margin-top: 20px;
+        }
+        .numero-item {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .par {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .impar {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .texto-centrado {
+            text-align: center;
+        }
+        .texto-negrita {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Pares e Impares</h1>
+        <div class="subtitulo">5 números - Operador % - Acumuladores</div>
+        
+        <div class="numeros-container">
+            <div class="campo">
+                <label for="numerosInput">Ingresa 5 números enteros, separados por comas:</label>
+                <input type="text" id="numerosInput" placeholder="Ej: 12, 7, 24, 15, 8" value="12,7,24,15,8">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Operador % y acumuladores:</strong><br>
+            let contadorPares = 0;    // Acumulador pares<br>
+            let contadorImpares = 0;  // Acumulador impares<br><br>
+            for (cada número) {<br>
+            &nbsp;&nbsp;if (numero % 2 == 0) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;contadorPares++;  // Es par<br>
+            &nbsp;&nbsp;} else {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;contadorImpares++; // Es impar<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+
+        <button onclick="contarParesImpares()">Contar Pares e Impares</button>
+        
+        <div id="resultado" class="resultado">
+            <h3 class="texto-centrado">Resultados:</h3>
+            <div class="contadores-container">
+                <div class="contador pares">
+                    Pares: <span id="contadorPares">0</span>
+                </div>
+                <div class="contador impares">
+                    Impares: <span id="contadorImpares">0</span>
+                </div>
+            </div>
+            <div id="detalles" class="detalles-analisis"></div>
+        </div>
+    </div>
+
+    <script>
+        function contarParesImpares() {
+            const numerosInput = document.getElementById('numerosInput').value;
+            const numerosArray = numerosInput.split(',').map(numero => parseInt(numero.trim()));
+            
+            // Validar que hay 5 números enteros
+            if (numerosArray.length !== 5 || numerosArray.some(isNaN)) {
+                alert('Por favor ingresa exactamente 5 números enteros válidos');
+                return;
+            }
+            
+            // ACUMULADORES
+            let contadorPares = 0;    // Acumulador para números pares
+            let contadorImpares = 0;  // Acumulador para números impares
+            let detallesHTML = '<strong>Análisis individual:</strong><br>';
+            
+            // Procesar cada número
+            for (let i = 0; i < numerosArray.length; i++) {
+                // USO DEL OPERADOR %
+                if (numerosArray[i] % 2 === 0) {
+                    contadorPares++;
+                    detallesHTML += `<div class="numero-item par">Número ${i+1}: ${numerosArray[i]} → <span class="texto-negrita">PAR</span> (${numerosArray[i]} % 2 = 0)</div>`;
+                } else {
+                    contadorImpares++;
+                    detallesHTML += `<div class="numero-item impar">Número ${i+1}: ${numerosArray[i]} → <span class="texto-negrita">IMPAR</span> (${numerosArray[i]} % 2 = 1)</div>`;
+                }
+            }
+            
+            // Mostrar resultados
+            document.getElementById('contadorPares').textContent = contadorPares;
+            document.getElementById('contadorImpares').textContent = contadorImpares;
+            document.getElementById('detalles').innerHTML = detallesHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Procesar automáticamente al cargar
+        window.onload = contarParesImpares;
+    </script>
+</body>
+</html>

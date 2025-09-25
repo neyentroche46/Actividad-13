@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aumento de Sueldo por Antigüedad</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00cec9 0%, #0984e3 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .datos-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #00cec9 0%, #0984e3 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .aumento-20 {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+        }
+        .aumento-5 {
+            background-color: #cce7ff;
+            color: #004085;
+            border: 3px solid #b3d7ff;
+        }
+        .sin-cambios {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 3px solid #ffeaa7;
+        }
+        .operacion {
+            background-color: #fff;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid #00cec9;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Aumento de Sueldo por Antigüedad</h1>
+        
+        <div class="datos-container">
+            <div class="campo">
+                <label for="sueldo">Sueldo del operario:</label>
+                <input type="number" id="sueldo" placeholder="Ingresa el sueldo" min="0" step="0.01">
+            </div>
+            <div class="campo">
+                <label for="antiguedad">Años de antigüedad:</label>
+                <input type="number" id="antiguedad" placeholder="Ingresa los años" min="0" step="1">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Condiciones anidadas:</strong><br>
+            if (sueldo < 500) {<br>
+            &nbsp;&nbsp;if (antiguedad >= 10) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;// Aumento 20%<br>
+            &nbsp;&nbsp;} else {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;// Aumento 5%<br>
+            &nbsp;&nbsp;}<br>
+            } else {<br>
+            &nbsp;&nbsp;// Sin cambios<br>
+            }
+        </div>
+
+        <button onclick="calcularAumento()">Calcular Sueldo a Pagar</button>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultado del Cálculo:</h3>
+            <p id="resultado-texto"></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularAumento() {
+            var sueldo = parseFloat(document.getElementById('sueldo').value);
+            var antiguedad = parseInt(document.getElementById('antiguedad').value);
+            
+            if (isNaN(sueldo) || isNaN(antiguedad) || sueldo < 0 || antiguedad < 0) {
+                alert('Por favor ingresa valores válidos');
+                return;
+            }
+            
+            var resultadoHTML = '';
+            var claseResultado = '';
+            
+            // ESTRUCTURAS CONDICIONALES ANIDADAS
+            if (sueldo < 500) {
+                if (antiguedad >= 10) {
+                    // Caso a: Aumento del 20%
+                    var aumento = sueldo * 0.20;
+                    var nuevoSueldo = sueldo + aumento;
+                    
+                    resultadoHTML = 
+                        '<div class="aumento-20" style="padding: 15px; border-radius: 5px; margin-bottom: 15px;">' +
+                        '🎉 ¡AUMENTO DEL 20% APLICADO!</div>' +
+                        '<div class="operacion">Sueldo actual: $' + sueldo.toFixed(2) + '</div>' +
+                        '<div class="operacion">Aumento (20%): $' + aumento.toFixed(2) + '</div>' +
+                        '<div class="operacion" style="font-weight: bold; color: #27ae60;">' +
+                        'Sueldo a pagar: $' + nuevoSueldo.toFixed(2) + '</div>';
+                    claseResultado = 'aumento-20';
+                    
+                } else {
+                    // Caso b: Aumento del 5%
+                    var aumento = sueldo * 0.05;
+                    var nuevoSueldo = sueldo + aumento;
+                    
+                    resultadoHTML = 
+                        '<div class="aumento-5" style="padding: 15px; border-radius: 5px; margin-bottom: 15px;">' +
+                        '📈 AUMENTO DEL 5% APLICADO</div>' +
+                        '<div class="operacion">Sueldo actual: $' + sueldo.toFixed(2) + '</div>' +
+                        '<div class="operacion">Aumento (5%): $' + aumento.toFixed(2) + '</div>' +
+                        '<div class="operacion" style="font-weight: bold; color: #2980b9;">' +
+                        'Sueldo a pagar: $' + nuevoSueldo.toFixed(2) + '</div>';
+                    claseResultado = 'aumento-5';
+                }
+            } else {
+                // Caso c: Sin cambios
+                resultadoHTML = 
+                    '<div class="sin-cambios" style="padding: 15px; border-radius: 5px; margin-bottom: 15px;">' +
+                    '⚖️ SUELDO SIN CAMBIOS</div>' +
+                    '<div class="operacion">Sueldo actual: $' + sueldo.toFixed(2) + '</div>' +
+                    '<div class="operacion">No aplica aumento (sueldo ≥ $500)</div>' +
+                    '<div class="operacion" style="font-weight: bold; color: #f39c12;">' +
+                    'Sueldo a pagar: $' + sueldo.toFixed(2) + '</div>';
+                claseResultado = 'sin-cambios';
+            }
+            
+            // Agregar información de antigüedad
+            resultadoHTML += '<div style="margin-top: 15px; font-size: 14px; color: #666;">' +
+                        '<strong>Antigüedad:</strong> ' + antiguedad + ' años</div>';
+            
+            document.getElementById('resultado-texto').innerHTML = resultadoHTML;
+            document.getElementById('resultado').className = 'resultado mostrar ' + claseResultado;
+        }
+    </script>
+</body>
+</html>

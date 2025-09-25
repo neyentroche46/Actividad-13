@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrada de Datos - Nombre y Email</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .formulario {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .campo {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #74b9ff;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #74b9ff;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .dato-usuario {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        .etiqueta {
+            font-weight: bold;
+            color: #2d3436;
+        }
+        .valor {
+            color: #e74c3c;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        .instrucciones {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Entrada de Datos por Teclado</h1>
+        
+        <div class="formulario">
+            <div class="campo">
+                <label for="nombre">Nombre de usuario:</label>
+                <input type="text" id="nombre" placeholder="Ingresa tu nombre completo">
+            </div>
+            
+            <div class="campo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Ingresa tu email">
+            </div>
+            
+            <button onclick="mostrarDatos()">Mostrar Datos Ingresados</button>
+        </div>
+        
+        <div id="resultado" class="resultado">
+            <h3>📊 Datos Ingresados:</h3>
+            <div id="datos-usuario">
+                <!-- Aquí se mostrarán los datos -->
+            </div>
+        </div>
+        
+        <div class="instrucciones">
+            <strong>Instrucciones:</strong> Ingresa tu nombre y email en los campos de arriba, luego haz clic en el botón para ver los datos mostrados en la página.
+        </div>
+    </div>
+
+    <script>
+        function mostrarDatos() {
+            // Obtener los valores ingresados por teclado
+            var nombre = document.getElementById('nombre').value;
+            var email = document.getElementById('email').value;
+            
+            // Mostrar los datos en la página HTML
+            var datosHTML = '';
+            
+            datosHTML += '<div class="dato-usuario">';
+            datosHTML += '<div class="etiqueta">Nombre:</div>';
+            datosHTML += '<div class="valor">' + (nombre || 'No ingresado') + '</div>';
+            datosHTML += '</div>';
+            
+            datosHTML += '<div class="dato-usuario">';
+            datosHTML += '<div class="etiqueta">Email:</div>';
+            datosHTML += '<div class="valor">' + (email || 'No ingresado') + '</div>';
+            datosHTML += '</div>';
+            
+            // Insertar los datos en el HTML
+            document.getElementById('datos-usuario').innerHTML = datosHTML;
+            
+            // Mostrar la sección de resultados
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Permitir enviar con Enter
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                mostrarDatos();
+            }
+        });
+    </script>
+</body>
+</html>

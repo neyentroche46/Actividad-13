@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altura Promedio - Acumulador</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .alturas-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .promedio {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00b894;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            border: 3px solid #00b894;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .texto-centrado {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📏 Altura Promedio</h1>
+        <div class="subtitulo">5 alturas - Acumulador de suma</div>
+        
+        <div class="alturas-container">
+            <div class="campo">
+                <label for="alturasInput">Ingresa 5 alturas en cm, separadas por comas:</label>
+                <input type="text" id="alturasInput" placeholder="Ej: 165, 172, 158, 180, 170" value="165,172,158,180,170">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Acumulador utilizado:</strong><br>
+            let sumaAlturas = 0;  // Acumulador de la suma<br><br>
+            for (cada altura) {<br>
+            &nbsp;&nbsp;sumaAlturas += altura;<br>
+            }<br>
+            let promedio = sumaAlturas / 5;
+        </div>
+
+        <button onclick="calcularPromedio()">Calcular Promedio</button>
+        
+        <div id="resultado" class="resultado">
+            <h3 class="texto-centrado">Resultado:</h3>
+            <div class="promedio" id="promedioTexto">0 cm</div>
+            <div id="detalles"></div>
+        </div>
+    </div>
+
+    <script>
+        function calcularPromedio() {
+            const alturasInput = document.getElementById('alturasInput').value;
+            const alturasArray = alturasInput.split(',').map(altura => parseFloat(altura.trim()));
+            
+            // Validar que hay 5 alturas
+            if (alturasArray.length !== 5 || alturasArray.some(isNaN)) {
+                alert('Por favor ingresa exactamente 5 alturas válidas separadas por comas');
+                return;
+            }
+            
+            // ACUMULADOR
+            let sumaAlturas = 0;  // Acumulador de la suma total
+            let detallesHTML = '<strong>Alturas ingresadas:</strong><br>';
+            
+            // Procesar cada altura
+            for (let i = 0; i < alturasArray.length; i++) {
+                sumaAlturas += alturasArray[i];
+                detallesHTML += `Persona ${i+1}: ${alturasArray[i]} cm<br>`;
+            }
+            
+            // Calcular promedio
+            const promedio = sumaAlturas / alturasArray.length;
+            
+            // Mostrar resultados
+            detallesHTML += `<br><strong>Suma total:</strong> ${sumaAlturas} cm<br>`;
+            detallesHTML += `<strong>Cantidad de personas:</strong> ${alturasArray.length}<br>`;
+            detallesHTML += `<strong>Fórmula:</strong> ${sumaAlturas} ÷ ${alturasArray.length} = ${promedio.toFixed(2)} cm`;
+            
+            document.getElementById('promedioTexto').textContent = promedio.toFixed(2) + ' cm';
+            document.getElementById('detalles').innerHTML = detallesHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Calcular automáticamente al cargar
+        window.onload = calcularPromedio;
+    </script>
+</body>
+</html>

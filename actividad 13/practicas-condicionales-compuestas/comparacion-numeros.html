@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación de Dos Números</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .numeros-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .condicion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .operacion {
+            background-color: #e8f4f8;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Comparación de Dos Números</h1>
+        
+        <div class="numeros-container">
+            <div class="campo">
+                <label for="numero1">Primer número:</label>
+                <input type="number" id="numero1" placeholder="Ingresa el primer número">
+            </div>
+            <div class="campo">
+                <label for="numero2">Segundo número:</label>
+                <input type="number" id="numero2" placeholder="Ingresa el segundo número">
+            </div>
+        </div>
+
+        <div class="condicion">
+            <strong>Condición compuesta:</strong><br>
+            if (numero1 > numero2) {<br>
+            &nbsp;&nbsp;// Calcular suma y diferencia<br>
+            } else {<br>
+            &nbsp;&nbsp;// Calcular producto y división<br>
+            }
+        </div>
+
+        <button onclick="compararNumeros()">Comparar y Calcular</button>
+        
+        <div id="resultado" class="resultado">
+            <h3>Resultado:</h3>
+            <p id="resultado-texto"></p>
+        </div>
+    </div>
+
+    <script>
+        function compararNumeros() {
+            // Obtener valores y convertir a números
+            var numero1 = parseFloat(document.getElementById('numero1').value);
+            var numero2 = parseFloat(document.getElementById('numero2').value);
+            
+            // Validar que se ingresaron números
+            if (isNaN(numero1) || isNaN(numero2)) {
+                alert('Por favor ingresa ambos números');
+                return;
+            }
+            
+            var resultadoHTML = '';
+            
+            // ESTRUCTURA CONDICIONAL COMPUESTA
+            if (numero1 > numero2) {
+                // Si el primero es mayor al segundo
+                var suma = numero1 + numero2;
+                var diferencia = numero1 - numero2;
+                
+                resultadoHTML = 
+                    '<div style="color: #27ae60; font-weight: bold; margin-bottom: 15px;">' +
+                    '✅ El primer número (' + numero1 + ') es MAYOR que el segundo (' + numero2 + ')</div>' +
+                    '<div class="operacion">Suma: ' + numero1 + ' + ' + numero2 + ' = <strong>' + suma + '</strong></div>' +
+                    '<div class="operacion">Diferencia: ' + numero1 + ' - ' + numero2 + ' = <strong>' + diferencia + '</strong></div>';
+                    
+            } else {
+                // Si el primero NO es mayor al segundo
+                var producto = numero1 * numero2;
+                var division = numero2 !== 0 ? (numero1 / numero2) : 'No se puede dividir por cero';
+                
+                resultadoHTML = 
+                    '<div style="color: #e74c3c; font-weight: bold; margin-bottom: 15px;">' +
+                    '🔁 El primer número (' + numero1 + ') NO es mayor que el segundo (' + numero2 + ')</div>' +
+                    '<div class="operacion">Producto: ' + numero1 + ' × ' + numero2 + ' = <strong>' + producto + '</strong></div>' +
+                    '<div class="operacion">División: ' + numero1 + ' ÷ ' + numero2 + ' = <strong>' + division + '</strong></div>';
+            }
+            
+            document.getElementById('resultado-texto').innerHTML = resultadoHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie 20 Términos - Acumulador</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .serie-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .termino {
+            display: inline-block;
+            background-color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 2px solid #9b59b6;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .codigo-ejemplo {
+            background-color: #2d3436;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .texto-centrado {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Serie de 20 Términos</h1>
+        <div class="subtitulo">5, 10, 15, 20... - Acumulador de serie</div>
+
+        <div class="explicacion">
+            <strong>Acumulador utilizado:</strong><br>
+            let termino = 5;  // Valor inicial<br>
+            let contador = 1; // Contador de términos<br><br>
+            while (contador <= 20) {<br>
+            &nbsp;&nbsp;// Mostrar término actual<br>
+            &nbsp;&nbsp;termino += 5;  // Incremento acumulativo<br>
+            &nbsp;&nbsp;contador++;<br>
+            }
+        </div>
+
+        <div class="serie-container">
+            <h3 class="texto-centrado">Serie de 20 términos:</h3>
+            <div id="serie"></div>
+        </div>
+
+        <div class="codigo-ejemplo">
+            <strong>Código implementado:</strong><br><br>
+            let termino = 5;<br>
+            let contador = 1;<br>
+            let serieHTML = '';<br><br>
+            while (contador <= 20) {<br>
+            &nbsp;&nbsp;serieHTML += termino + ' ';<br>
+            &nbsp;&nbsp;termino += 5;<br>
+            &nbsp;&nbsp;contador++;<br>
+            }
+        </div>
+    </div>
+
+    <script>
+        function generarSerie() {
+            let termino = 5;   // Acumulador del valor actual
+            let contador = 1;  // Acumulador del contador
+            let serieHTML = '';
+            
+            // Generar 20 términos
+            while (contador <= 20) {
+                serieHTML += `<span class="termino">${termino}</span>`;
+                termino += 5;  // Acumulación del valor
+                contador++;    // Acumulación del contador
+            }
+            
+            document.getElementById('serie').innerHTML = serieHTML;
+        }
+        
+        // Generar automáticamente
+        window.onload = generarSerie;
+    </script>
+</body>
+</html>

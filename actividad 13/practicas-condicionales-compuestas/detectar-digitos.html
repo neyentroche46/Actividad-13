@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detectar Dígitos de un Número</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .numero-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-align: left;
+        }
+        .un-digito {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .dos-digitos {
+            background-color: #cce7ff;
+            color: #004085;
+            border: 3px solid #b3d7ff;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Detectar Dígitos de un Número</h1>
+        
+        <div class="numero-container">
+            <div class="campo">
+                <label for="numero">Ingresa un número positivo (1-99):</label>
+                <input type="number" id="numero" placeholder="Ej: 5, 23, 87" min="1" max="99" step="1">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Condición para detectar dígitos:</strong><br>
+            var numeroEntero = parseInt(numero);<br>
+            if (numeroEntero >= 10) {<br>
+            &nbsp;&nbsp;// Tiene DOS dígitos<br>
+            } else {<br>
+            &nbsp;&nbsp;// Tiene UN dígito<br>
+            }
+        </div>
+
+        <button onclick="detectarDigitos()">Detectar Dígitos</button>
+        
+        <div id="resultado" class="resultado">
+            <h3>Análisis:</h3>
+            <p id="resultado-texto"></p>
+        </div>
+    </div>
+
+    <script>
+        function detectarDigitos() {
+            // Obtener valor y convertir a entero como indica el ejercicio
+            var numero = document.getElementById('numero').value;
+            var numeroEntero = parseInt(numero);
+            
+            // Validar que se ingresó un número positivo
+            if (isNaN(numeroEntero) || numeroEntero < 1 || numeroEntero > 99) {
+                document.getElementById('resultado-texto').innerHTML = 
+                    '<div class="error">❌ Por favor ingresa un número positivo entre 1 y 99</div>';
+                document.getElementById('resultado').classList.add('mostrar');
+                return;
+            }
+            
+            var resultadoHTML = '';
+            
+            // ESTRUCTURA CONDICIONAL COMPUESTA
+            if (numeroEntero >= 10) {
+                // El número tiene DOS dígitos
+                resultadoHTML = 
+                    '<div class="dos-digitos">🎯 El número tiene DOS dígitos</div>' +
+                    '<div style="text-align: left; margin-top: 15px;">' +
+                    '<strong>Número original:</strong> ' + numero + '<br>' +
+                    '<strong>Número entero:</strong> ' + numeroEntero + '<br>' +
+                    '<strong>Condición:</strong> ' + numeroEntero + ' >= 10 → VERDADERO<br>' +
+                    '<strong>Explicación:</strong> Los números de 10 a 99 tienen dos dígitos' +
+                    '</div>';
+            } else {
+                // El número tiene UN dígito
+                resultadoHTML = 
+                    '<div class="un-digito">🎯 El número tiene UN dígito</div>' +
+                    '<div style="text-align: left; margin-top: 15px;">' +
+                    '<strong>Número original:</strong> ' + numero + '<br>' +
+                    '<strong>Número entero:</strong> ' + numeroEntero + '<br>' +
+                    '<strong>Condición:</strong> ' + numeroEntero + ' >= 10 → FALSO<br>' +
+                    '<strong>Explicación:</strong> Los números de 1 a 9 tienen un solo dígito' +
+                    '</div>';
+            }
+            
+            document.getElementById('resultado-texto').innerHTML = resultadoHTML;
+            document.getElementById('resultado').classList.add('mostrar');
+        }
+        
+        // Validación en tiempo real
+        document.getElementById('numero').addEventListener('input', function() {
+            var valor = this.value;
+            if (valor > 99) {
+                this.value = 99;
+            }
+            if (valor < 1 && valor !== '') {
+                this.value = 1;
+            }
+        });
+    </script>
+</body>
+</html>

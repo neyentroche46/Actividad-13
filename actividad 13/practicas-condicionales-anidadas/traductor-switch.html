@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor - Estructura Switch</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitulo {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .palabras-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .campo {
+            margin: 20px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: white;
+        }
+        .input-palabra {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .resultado {
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+            display: none;
+        }
+        .resultado.mostrar {
+            display: block;
+        }
+        .traduccion-exitosa {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+        }
+        .traduccion-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #f5c6cb;
+        }
+        .palabra-espanol {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3436;
+            margin: 10px 0;
+        }
+        .palabra-ingles {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0;
+        }
+        .explicacion {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-align: left;
+        }
+        .diccionario {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .palabra-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .palabra-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔤 Traductor Español-Inglés</h1>
+        <div class="subtitulo">Usando Estructura Switch</div>
+        
+        <div class="palabras-container">
+            <div class="campo">
+                <label for="selectorPalabra">Selecciona una palabra para traducir:</label>
+                <select id="selectorPalabra" title="Selecciona una palabra del diccionario: casa, mesa, perro o gato" onchange="seleccionarPalabra()">
+                    <option value="">-- Selecciona una palabra --</option>
+                    <option value="casa">casa → house</option>
+                    <option value="mesa">mesa → table</option>
+                    <option value="perro">perro → dog</option>
+                    <option value="gato">gato → cat</option>
+                </select>
+            </div>
+            
+            <div class="campo">
+                <label for="palabraInput">O escribe la palabra manualmente:</label>
+                <input type="text" id="palabraInput" class="input-palabra" 
+                       placeholder="Escribe: casa, mesa, perro o gato" 
+                       title="Escribe manualmente una palabra en español para traducir"
+                       oninput="actualizarSelector()">
+            </div>
+        </div>
+
+        <div class="explicacion">
+            <strong>Estructura SWITCH utilizada:</strong><br>
+            switch(palabra) {<br>
+            &nbsp;&nbsp;case "casa":<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;traduccion = "house";<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+            &nbsp;&nbsp;case "mesa":<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;traduccion = "table";<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+            &nbsp;&nbsp;case "perro":<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;traduccion = "dog";<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+            &nbsp;&nbsp;case "gato":<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;traduccion = "cat";<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+            &nbsp;&nbsp;default:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;traduccion = "Palabra no encontrada";<br>
+            }
+        </div>
+
+        <button onclick="traducirPalabra()" title="Haz clic para traducir la palabra seleccionada o escrita">Traducir Palabra</button>
+        
+        <div class="diccionario">
+            <strong>Diccionario disponible:</strong>
+            <div class="palabra-item">
+                <span>casa</span>
+                <span>→ house</span>
+            </div>
+            <div class="palabra-item">
+                <span>mesa</span>
+                <span>→ table</span>
+            </div>
+            <div class="palabra-item">
+                <span>perro</span>
+                <span>→ dog</span>
+            </div>
+            <div class="palabra-item">
+                <span>gato</span>
+                <span>→ cat</span>
+            </div>
+        </div>
+        
+        <div id="resultado" class="resultado">
+            <h3>Traducción:</h3>
+            <div id="resultado-texto"></div>
+        </div>
+    </div>
+
+    <script>
+        function traducirPalabra() {
+            // Obtener la palabra del input o del selector
+            var palabraInput = document.getElementById('palabraInput').value.toLowerCase().trim();
+            var palabraSelector = document.getElementById('selectorPalabra').value;
+            
+            // Usar la palabra del input si está escrita, sino la del selector
+            var palabra = palabraInput || palabraSelector;
+            
+            if (!palabra) {
+                alert('Por favor selecciona o escribe una palabra');
+                return;
+            }
+            
+            var traduccion = '';
+            var claseResultado = '';
+            
+            // ESTRUCTURA SWITCH PARA LA TRADUCCIÓN
+            switch(palabra) {
+                case "casa":
+                    traduccion = "house";
+                    claseResultado = "traduccion-exitosa";
+                    break;
+                case "mesa":
+                    traduccion = "table";
+                    claseResultado = "traduccion-exitosa";
+                    break;
+                case "perro":
+                    traduccion = "dog";
+                    claseResultado = "traduccion-exitosa";
+                    break;
+                case "gato":
+                    traduccion = "cat";
+                    claseResultado = "traduccion-exitosa";
+                    break;
+                default:
+                    traduccion = "❌ Palabra no encontrada en el diccionario";
+                    claseResultado = "traduccion-error";
+            }
+            
+            var resultadoHTML = '';
+            
+            if (claseResultado === "traduccion-exitosa") {
+                resultadoHTML = 
+                    '<div class="palabra-espanol">Español: ' + palabra + '</div>' +
+                    '<div style="font-size: 24px;">↓</div>' +
+                    '<div class="palabra-ingles">Inglés: ' + traduccion + '</div>' +
+                    '<div style="margin-top: 15px; font-size: 14px; color: #666;">' +
+                    'Traducción exitosa usando estructura switch</div>';
+            } else {
+                resultadoHTML = 
+                    '<div style="text-align: center; font-size: 18px;">' + traduccion + '</div>' +
+                    '<div style="margin-top: 15px; font-size: 14px; color: #666;">' +
+                    'Solo se pueden traducir: casa, mesa, perro, gato</div>';
+            }
+            
+            document.getElementById('resultado-texto').innerHTML = resultadoHTML;
+            document.getElementById('resultado').className = 'resultado mostrar ' + claseResultado;
+        }
+        
+        function seleccionarPalabra() {
+            var palabraSeleccionada = document.getElementById('selectorPalabra').value;
+            if (palabraSeleccionada) {
+                document.getElementById('palabraInput').value = palabraSeleccionada;
+                traducirPalabra(); // Traducir automáticamente al seleccionar
+            }
+        }
+        
+        function actualizarSelector() {
+            var palabraInput = document.getElementById('palabraInput').value.toLowerCase().trim();
+            var selector = document.getElementById('selectorPalabra');
+            
+            // Buscar si la palabra escrita coincide con alguna opción
+            for (var i = 0; i < selector.options.length; i++) {
+                if (selector.options[i].value === palabraInput) {
+                    selector.value = palabraInput;
+                    return;
+                }
+            }
+            selector.value = ""; // Limpiar selector si no coincide
+        }
+        
+        // Permitir traducir con Enter
+        document.getElementById('palabraInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                traducirPalabra();
+            }
+        });
+    </script>
+</body>
+</html>
